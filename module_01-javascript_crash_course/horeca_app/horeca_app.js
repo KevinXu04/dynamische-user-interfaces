@@ -1,0 +1,1 @@
+var vraag = prompt("Hallo was willst du?")
