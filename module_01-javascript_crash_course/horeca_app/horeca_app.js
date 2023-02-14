@@ -3,9 +3,12 @@ let vraag;
 let hoeveel;
 let nogEen = true;
 let drankjesPrijzen = {};
-var totaalPrijs;
+let totaalPrijs;
+let bonnetje = [];
+let element = document.getElementById("bonnetje");
 
-function bestellen(drankje, aantal) {
+
+function bestellingToevoegen(drankje, aantal) {
     if (Object.keys(objectDrankjes).includes(vraag)){
         objectDrankjes[drankje] += aantal;
     } else{
@@ -15,6 +18,7 @@ function bestellen(drankje, aantal) {
 
 function totaal(object){
     let totaal = 0;
+
     for (let key in object) {
       totaal += object[key];
     }
@@ -29,27 +33,41 @@ function berekening(soortDrank){
     if (soortDrank in objectDrankjes === true){
         var aantal = objectDrankjes[soortDrank];
         if (soortDrank === "fris"){
-            drankjesPrijzen["fris"] = prijsPerFris * aantal;
+            drankjesPrijzen["frisPrijs"] = prijsPerFris * aantal;
         }
         if (soortDrank === "wijn"){
-            drankjesPrijzen["wijn"] = prijsPerWijn * aantal;
+            drankjesPrijzen["wijnPrijs"] = prijsPerWijn * aantal;
         }
         if (soortDrank === "bier"){
-            drankjesPrijzen["bier"] = prijsPerBier * aantal;
+            drankjesPrijzen["bierPrijs"] = prijsPerBier * aantal;
         }
     } 
 
-    // if ("wijn" in objectDrankjes === true){
-    //     var aantalWijn = objectDrankjes["wijn"];
-    //     drankjesPrijzen["wijn"] = prijsPerWijn * aantalWijn;
-    // }
-    // if ("bier" in objectDrankjes === true){
-    //     var aantalBier = objectDrankjes["bier"];
-    //     drankjesPrijzen["bier"] = prijsPerBier * aantalBier;
-    // }
-
-    totaalPrijs = totaal(drankjesPrijzen);
+    totaalPrijs = "Totaal prijs: " + totaal(drankjesPrijzen) + " euro";
 }
+
+
+function bon(vraagDrank){
+    let dranken;
+    
+    if (vraagDrank in objectDrankjes){
+        for (let drank in objectDrankjes){
+            dranken = objectDrankjes[drank] + "x " + vraagDrank + " " + drankjesPrijzen[drank + "Prijs"] + " euro" + "<br>"
+            console.log(dranken)
+        }
+    
+
+        let toevoeging = document.createElement('node');
+        toevoeging.innerHTML = dranken;
+        element.appendChild(toevoeging);
+    }
+}
+
+function totale() {
+    let prijsToevoeging = document.createElement('node');
+    prijsToevoeging.innerHTML = totaalPrijs;
+    element.appendChild(prijsToevoeging);
+  }
 
 while(nogEen){
     vraag = prompt("Hallo was willst du? Type 'Stop' om te stoppen ").toLowerCase();
@@ -57,24 +75,20 @@ while(nogEen){
         nogEen = false;
     } else if (vraag === "fris" || vraag === "wijn" || vraag === "bier"){
         hoeveel = parseInt(prompt("Hoeveel " + vraag + " wilt u hebben?"));
-        console.log(objectDrankjes);
         if (Number.isFinite(hoeveel) === false){
             alert("Dat is geen getal! ");
             continue;
         }
-    bestellen(vraag, hoeveel);  
+    bestellingToevoegen(vraag, hoeveel);  
     berekening(vraag);
+    bon(vraag);
     } else {
         alert("Die ken ik niet! ");
+        continue;
     }
 }
+if (nogEen === false){
+    totale();
+    
+}
 
-
-
-console.log(totaalPrijs)
-
-
-
-
-var element = document.getElementById("bonnetje");
-element.innerText = totaalPrijs;
