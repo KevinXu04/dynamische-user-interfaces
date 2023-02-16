@@ -11,12 +11,12 @@ var verdieping = 120;
 if (autosGevraagd < beganeGrond){
     var aantalVerdiepingen = 0;
 } else if (autosGevraagd >= verdieping){
-    var aantalVerdiepingen = Math.ceil(autosGevraagd/120);
+    var aantalVerdiepingen = Math.ceil((autosGevraagd-80)/120);
 } else{
     var aantalVerdiepingen = "Ik heb nog geen idee hoeveel verdiepingen er moeten komen :-( ";
 }
 
-var antwoord = "Om het gewenste aantal autos kwijt te kunnen heb ik " + aantalVerdiepingen + " verdiepingen nodig. TSET";
+var antwoord = "Om het gewenste aantal autos kwijt te kunnen heb ik " + aantalVerdiepingen + " verdiepingen nodig.";
 
 var element = document.getElementById("antwoord");
 element.innerText = antwoord;

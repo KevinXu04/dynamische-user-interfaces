@@ -1,5 +1,5 @@
-var cijferGevraagd = parseInt(prompt("Vul een getal in "));
-var placeholder = "";
+let cijferGevraagd = parseInt(prompt("Vul een getal in "));
+let placeholder = "";
 
 for(let x = 0; x < cijferGevraagd; x++){
     for(let i = 0; i < x; i++){
@@ -24,4 +24,5 @@ for(let x = cijferGevraagd; x > 0; x--){
     }
     placeholder += "\n"
 }
-document.getElementById("diamond").innerText = placeholder;
+element = document.getElementById("diamond");
+element.innerText = placeholder;
