@@ -8,7 +8,7 @@ let bonnetje = [];
 let element = document.getElementById("bonnetje");
 
 
-function bestellingToevoegen(drankje, aantal) {
+function bestellingToevoegen(drankje, aantal){
     if (Object.keys(objectDrankjes).includes(vraag)){
         objectDrankjes[drankje] += aantal;
     } else{
@@ -63,7 +63,7 @@ function bon(vraagDrank){
     }
 }
 
-function totale() {
+function totale(){
     let prijsToevoeging = document.createElement('node');
     prijsToevoeging.innerHTML = totaalPrijs;
     element.appendChild(prijsToevoeging);
@@ -89,6 +89,6 @@ while(nogEen){
 }
 if (nogEen === false){
     totale();
-    
+
 }
 
