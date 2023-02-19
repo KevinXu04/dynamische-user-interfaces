@@ -1,93 +1,70 @@
-let objectDrankjes = {};
+let drankjes = ["fris", "bier", "wijn"];
+let bestelling = {};
+let kosten = {};
+let totaalPrijs = 0;
 let vraag;
-let hoeveel;
-let nogEen = true;
-let drankjesPrijzen = {};
-let totaalPrijs;
-let bonnetje = [];
-let element = document.getElementById("bonnetje");
+let aantal;
+let meer = true;
 
+const prijzen = {
+    fris: 2.50,
+    bier: 3.00,
+    wijn: 4.00
+  };
 
-function bestellingToevoegen(drankje, aantal){
-    if (Object.keys(objectDrankjes).includes(vraag)){
-        objectDrankjes[drankje] += aantal;
+function drankjeToevoegen(drankje, aantal){
+    if (Object.keys(bestelling).includes(drankje)){
+        bestelling[drankje] += aantal;
     } else{
-        objectDrankjes[drankje] = aantal;
+        bestelling[drankje] = aantal;
     }
+    console.log(bestelling);
+    return bestelling;
 }
 
-function totaal(object){
-    let totaal = 0;
-
-    for (let key in object) {
-      totaal += object[key];
+function calculatie(soortDrank) {
+    for (let drank in bestelling) {
+        totaalPrijs += bestelling[drank] * prijzen[drank];
+        kosten[soortDrank] = bestelling[drank] * prijzen[drank]
     }
-    return totaal;
+    return totaalPrijs, kosten;
 }
 
-function berekening(soortDrank){
-    const prijsPerFris = 5;
-    const prijsPerBier = 7;
-    const prijsPerWijn = 10;
+function bon(){
+    const div = document.createElement('div');
 
-    if (soortDrank in objectDrankjes === true){
-        var aantal = objectDrankjes[soortDrank];
-        if (soortDrank === "fris"){
-            drankjesPrijzen["frisPrijs"] = prijsPerFris * aantal;
+    for (const drank in bestelling) {
+        if (bestelling[drank] > 0) {
+        const drankP = document.createElement('p');
+        drankP.textContent = `${bestelling[drank]}x ${drank} - €${(prijzen[drank] * bestelling[drank]).toFixed(2)}`;
+        div.appendChild(drankP);
         }
-        if (soortDrank === "wijn"){
-            drankjesPrijzen["wijnPrijs"] = prijsPerWijn * aantal;
-        }
-        if (soortDrank === "bier"){
-            drankjesPrijzen["bierPrijs"] = prijsPerBier * aantal;
-        }
-    } 
-
-    totaalPrijs = "Totaal prijs: " + totaal(drankjesPrijzen) + " euro";
-}
-
-
-function bon(vraagDrank){
-    let dranken;
-    
-    if (vraagDrank in objectDrankjes){
-        for (let drank in objectDrankjes){
-            dranken = objectDrankjes[drank] + "x " + vraagDrank + " " + drankjesPrijzen[drank + "Prijs"] + " euro" + "<br>"
-            console.log(dranken)
-        }
-    
-
-        let toevoeging = document.createElement('node');
-        toevoeging.innerHTML = dranken;
-        element.appendChild(toevoeging);
     }
+
+    const totaalP = document.createElement('p');
+    totaalP.textContent = `Totaalprijs: €${totaalPrijs.toFixed(2)}`;
+    div.appendChild(totaalP);
+
+    document.body.appendChild(div);
 }
 
-function totale(){
-    let prijsToevoeging = document.createElement('node');
-    prijsToevoeging.innerHTML = totaalPrijs;
-    element.appendChild(prijsToevoeging);
-  }
-
-while(nogEen){
-    vraag = prompt("Hallo was willst du? Type 'Stop' om te stoppen ").toLowerCase();
-    if (vraag === "stop"){
-        nogEen = false;
-    } else if (vraag === "fris" || vraag === "wijn" || vraag === "bier"){
-        hoeveel = parseInt(prompt("Hoeveel " + vraag + " wilt u hebben?"));
-        if (Number.isFinite(hoeveel) === false){
+while(meer){
+    vraag = prompt("Wat wilt u bestellen? Type 'Stop' om te stoppen. ").toLowerCase()
+    if (vraag == "stop"){
+        meer = false;
+    }else if (drankjes.includes(vraag)){
+        aantal = parseInt(prompt("Hoeveel van " + vraag + " wilt u hebben?"));
+        if (isFinite(aantal)){
+            drankjeToevoegen(vraag, aantal);
+            calculatie(vraag);
+            console.log(kosten)
+        } else{
             alert("Dat is geen getal! ");
-            continue;
         }
-    bestellingToevoegen(vraag, hoeveel);  
-    berekening(vraag);
-    bon(vraag);
-    } else {
+    } else{
         alert("Die ken ik niet! ");
-        continue;
     }
 }
-if (nogEen === false){
-    totale();
-
+if (!meer){
+    bon();
 }

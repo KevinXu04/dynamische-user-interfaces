@@ -18,13 +18,20 @@
         spaceShip.run(function () {
             // code  start
             
-            teller = 8
-            for (let i = 0; i < 8; i++){
-                for (let i = 0; i < teller; i++){
+            // teller = 8
+            // for (let i = 0; i < 8; i++){
+            //     for (let i = 0; i < teller; i++){
+            //         spaceShip.moveForward();}
+            //     spaceShip.rotateLeft();
+            //     teller = teller - 1}
+            // spaceShip.moveForward();
+
+            for (let i = 8; i > 0; i--){
+                for (let x = 0; x < i; x++){
                     spaceShip.moveForward();}
-                spaceShip.rotateLeft();
-                teller = teller - 1}
+                spaceShip.rotateLeft();}
             spaceShip.moveForward();
+
 
             // code  einde
         });
