@@ -1,28 +1,21 @@
-let cijferGevraagd = parseInt(prompt("Vul een getal in "));
-let placeholder = "";
+let cijfer = parseInt(prompt("Voer een cijfer in"));
+let diamant = "";
 
-for(let x = 0; x < cijferGevraagd; x++){
-    for(let i = 0; i < x; i++){
-        if(i < 1){
-            placeholder += `${i + 1}`
-        }
-        else{
-            placeholder += -`${i + 1}`
-        }
+for(let i = 0; i < cijfer; i++){
+    let rij = "";
+    for(let x = 1; x <= i; x++){
+        rij += x + "-";
     }
-    placeholder += "\n"
+    diamant += rij.slice(0, -1) + "\n";
 }
 
-for(let x = cijferGevraagd; x > 0; x--){
-    for(let i = 0; i < x; i++){
-        if(i < 1){
-            placeholder += `${i + 1}`
-        }
-        else{
-            placeholder += -`${i + 1}`
-        }
+for(let i = cijfer; i > 0; i--){
+    let rij = "";
+    for(let x = 1; x <= i; x++){
+        rij += x + "-";
     }
-    placeholder += "\n"
+    diamant += rij.slice(0, -1) + "\n";
 }
-element = document.getElementById("diamond");
-element.innerText = placeholder;
+
+element = document.getElementById("diamond")
+element.innerText = diamant;
