@@ -10,13 +10,14 @@ const prijzen = {
     fris: 2.50,
     bier: 3.00,
     wijn: 4.00
-  };
+};
 
 function drankjeToevoegen(drankje, aantal){
     if (Object.keys(bestelling).includes(drankje)){
         bestelling[drankje] += aantal;
     } else{
         bestelling[drankje] = aantal;
+        
     }
     console.log(bestelling);
     return bestelling;
@@ -31,21 +32,18 @@ function calculatie(soortDrank) {
 }
 
 function bon(){
-    const div = document.createElement('div');
+
+    console.log("Bon:")
 
     for (const drank in bestelling) {
         if (bestelling[drank] > 0) {
-        const drankP = document.createElement('p');
-        drankP.textContent = `${bestelling[drank]}x ${drank} - €${(prijzen[drank] * bestelling[drank]).toFixed(2)}`;
-        div.appendChild(drankP);
+            let prijsSoortDrank = bestelling[drank]*prijzen[drank]
+            console.log(bestelling[drank] + "x " + drank + " | " + prijsSoortDrank + " euro")
+            totaalPrijs += prijsSoortDrank
         }
     }
 
-    const totaalP = document.createElement('p');
-    totaalP.textContent = `Totaalprijs: €${totaalPrijs.toFixed(2)}`;
-    div.appendChild(totaalP);
-
-    document.body.appendChild(div);
+    console.log("Totaal prijs: " + totaalPrijs + " euro")
 }
 
 while(meer){
