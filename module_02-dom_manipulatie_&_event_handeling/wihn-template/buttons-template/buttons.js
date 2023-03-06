@@ -6,14 +6,30 @@ let buttons = [
 
 let container = document.querySelector('.container');
 let corner = document.querySelector('.corner');
+let selectedButton = false;
 
 buttons.forEach(function(button) {
     let buttonElement = document.getElementById(button.id);
     buttonElement.addEventListener('click', function() {
+
+        // The class active is removed from the previous clicked button and enables the button again.
+        if (selectedButton) {
+            selectedButton.classList.remove('active')
+            selectedButton.disabled = false;
+        }
+
+        // Adds the class active to the clicked button
+        buttonElement.classList.add('active')
+
+        // Changes the background and the value goes up with one
         container.style.backgroundImage = `url("${button.image}")`;
         corner.style.backgroundImage = `url("${button.cornerImage}")`;
         button.value += 1;
         updateValue(button);
+
+        // Disables the button and saves the buttonElement into selectedButton
+        buttonElement.disabled = true;
+        selectedButton = buttonElement
   });
 });
 
@@ -21,6 +37,8 @@ function updateValue(button){
     let valueElement = document.getElementById(button.id);
     valueElement.innerText = button.value
 }
+
+
 
 // let button1 = document.getElementById('1');
 // let button2 = document.getElementById('2');
