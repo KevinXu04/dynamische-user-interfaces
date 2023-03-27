@@ -1,38 +1,43 @@
+// Alle buttons worden in een array gestopt
 let buttons = [
     {id: '1', image: 'images/bg1.jpg', cornerImage: 'images/1.jpg', value: 0},
     {id: '2', image: 'images/bg2.jpg', cornerImage: 'images/2.jpg', value: 0},
     {id: '3', image: 'images/bg3.jpg', cornerImage: 'images/3.jpg', value: 0}
 ]
 
+// De HTML dingen worden opgehaald en opgeslagen
 let container = document.querySelector('.container');
 let corner = document.querySelector('.corner');
 let selectedButton = false;
 
+// Elke keer dat een button wordt geklikt wordt dit uitgevoerd
 buttons.forEach(function(button) {
     let buttonElement = document.getElementById(button.id);
     buttonElement.addEventListener('click', function() {
 
-        // The class active is removed from the previous clicked button and enables the button again.
+        // Als er iets is opgeslagen in de selectedButton wordt dit uitgevoerd:
+        // De class 'active' wordt verwijdert van de vorige geklikte button en maakt het weer klikbaar
         if (selectedButton) {
             selectedButton.classList.remove('active')
             selectedButton.disabled = false;
         }
 
-        // Adds the class active to the clicked button
+        // De class 'active' wordt toegevoegd aan de geklikte button
         buttonElement.classList.add('active')
 
-        // Changes the background and the value goes up with one
+        // De achtergrond verandert en de value gaat omhoog met 1
         container.style.backgroundImage = `url("${button.image}")`;
         corner.style.backgroundImage = `url("${button.cornerImage}")`;
         button.value += 1;
         updateValue(button);
 
-        // Disables the button and saves the buttonElement into selectedButton
+        // Dit maakt de button niet klikbaar en de buttonElement wordt opgeslagen
         buttonElement.disabled = true;
         selectedButton = buttonElement
   });
 });
 
+// Dit functie update de value 
 function updateValue(button){
     let valueElement = document.getElementById(button.id);
     valueElement.innerText = button.value

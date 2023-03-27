@@ -33,9 +33,9 @@ function bon(){
     let bon = "";
     for (let drank in bestelling) {
         if (bestelling[drank] > 0) {
-        let prijsSoortDrank = bestelling[drank]*prijzen[drank];
-        bon += bestelling[drank] + "x " + drank + " | " + prijsSoortDrank.toFixed(2) + " euro<br>"; 
-        totaalPrijs += prijsSoortDrank
+            let prijsSoortDrank = bestelling[drank]*prijzen[drank];
+            bon += bestelling[drank] + "x " + drank + " | " + prijsSoortDrank.toFixed(2) + " euro<br>"; 
+            totaalPrijs += prijsSoortDrank
         }
     }    
     document.getElementById("dranken").innerHTML = bon;
