@@ -1,6 +1,8 @@
 const buttonsPerRow = 5; // Het aantal buttons per rij
 const totalButtons = 30; // Aantal buttons
 
+const colors = ["green", "red", "purple", "blue", "black"];
+
 let buttons = []; // Array met buttons
 
 // Vult de array met buttons met id en value
@@ -19,7 +21,8 @@ for (i = 0; i < rows; i++){
     for (x = 0; x < buttonsPerRow; x++){
         let button = document.createElement("button");
         button.innerHTML = `${i * buttonsPerRow + x + 1}`; // Berekent de huidige button
-        button.setAttribute("id", `${i * buttonsPerRow + x + 1}`); // Berekent welke ID de button moet krijgen
+        // button.setAttribute("id", `${i * buttonsPerRow + x + 1}`); 
+        button.id = `${i * buttonsPerRow + x + 1}`; // Berekent welke ID de button moet krijgen
         row.appendChild(button); // Voegt button toe aan de rij
     }   
     container.appendChild(row); // Voegt de rij toe aan de container
@@ -30,20 +33,29 @@ buttons.forEach(function(button) {
     let buttonElement = document.getElementById(button.id);
     buttonElement.addEventListener('click', function() {
 
+        button.value += 1;
+
         // Als de value van een button een van deze if statements heeft gebeurt er dit
-        if (button.value == 0){
-            buttonElement.style.backgroundColor = "red"
-        } else if (button.value == 1){
-            buttonElement.style.backgroundColor = "purple"
-        } else if (button.value == 2){
-            buttonElement.style.backgroundColor = "blue"
-        } else if (button.value == 3){
-            buttonElement.style.backgroundColor = "black"
-        } else{
-            buttonElement.style.visibility = "hidden"
-        }
+        // if (button.value == 0){
+        //     buttonElement.style.backgroundColor = "red"
+        // } else if (button.value == 1){
+        //     buttonElement.style.backgroundColor = "purple"
+        // } else if (button.value == 2){
+        //     buttonElement.style.backgroundColor = "blue"
+        // } else if (button.value == 3){
+        //     buttonElement.style.backgroundColor = "black"
+        // } else{
+        //     buttonElement.style.visibility = "hidden"
+        // }
 
         // De value gaat steeds omhoog na een klik
-        button.value += 1;
+        // button.value += 1;
+
+        if (button.value == colors.length){
+            buttonElement.style.visibility = "hidden";
+        } else{
+            buttonElement.style.backgroundColor = colors[button.value];
+        }
+
   });
 });
